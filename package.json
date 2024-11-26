@@ -1,0 +1,41 @@
+{
+  "name": "rutas",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@heroicons/vue": "^2.1.5",
+    "@quasar/extras": "^1.16.12",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@vueuse/motion": "^2.2.6",
+    "animate.css": "^4.1.1",
+    "axios": "^1.7.7",
+    "bootstrap": "^5.3.2",
+    "gsap": "^3.12.5",
+    "jquery": "^3.7.1",
+    "leaflet": "^1.9.4",
+    "pinia": "^2.2.4",
+    "pinia-plugin-persistedstate": "^4.1.1",
+    "quasar": "^2.17.0",
+    "sweetalert2": "^11.14.4",
+    "vue": "^3.5.11",
+    "vue-router": "^4.4.5",
+    "vue3-carousel": "^0.3.4",
+    "vuetify": "^3.7.2"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.7.0",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "sass": "^1.80.7",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.1"
+  }
+}
