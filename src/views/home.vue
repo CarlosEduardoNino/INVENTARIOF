@@ -1,74 +1,117 @@
 <template>
-  <q-layout view="hHh LpR fFf">
-    <!-- Header -->
-    <q-header elevated class="bg-blue text-white" height-hint="60">
-      <q-toolbar>
-        <q-toolbar-title class="text-h5">INVENTARIO EXCLUSIVO</q-toolbar-title>
-        <q-btn flat icon="exit_to_app" class="text-white" @click="logout" />
-      </q-toolbar>
-    </q-header>
+  <div>
+    <!-- Fondo animado con ondas -->
+    <div class="box">
+      <div class="wave -one"></div>
+      <div class="wave -two"></div>
+      <div class="wave -three"></div>
+    </div>
 
-    <!-- Drawer Sidebar -->
-    <q-drawer v-model="leftDrawerOpen" show-if-above side="left" bordered class="bg-dark text-white">
-      <div class="q-pa-md">
-        <q-avatar size="56px" color="primary" icon="person" class="avatar-img" />
-        <div class="text-h6 q-mt-md">Bienvenido</div>
-        <div class="text-caption">Admin</div>
-      </div>
-      <q-list dense separator>
-        <q-item clickable to="/articulos" class="list-item">
-          <q-item-section avatar>
-            <q-icon name="shopping_cart" color="primary" class="icon-style" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="item-label">Artículos</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable to="/categorias" class="list-item">
-          <q-item-section avatar>
-            <q-icon name="category" color="primary" class="icon-style" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="item-label">Categorías</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable to="/clientes" class="list-item">
-          <q-item-section avatar>
-            <q-icon name="people" color="primary" class="icon-style" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="item-label">Clientes</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable to="/proveedores" class="list-item">
-          <q-item-section avatar>
-            <q-icon name="local_shipping" color="primary" class="icon-style" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="item-label">Proveedores</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable to="/usuarios" class="list-item">
-          <q-item-section avatar>
-            <q-icon name="admin_panel_settings" color="primary" class="icon-style" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="item-label">Usuarios</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
+    <q-layout view="hHh LpR fFf">
+      <!-- Header -->
+      <q-header elevated class="bg-blue text-white" height-hint="60">
+        <q-toolbar>
+          <!-- Botón para abrir/cerrar el drawer -->
+          <q-btn flat round icon="menu" class="text-white q-mr-sm" @click="toggleDrawer" />
+          <q-toolbar-title class="text-h5">INVENTARIO EXCLUSIVO</q-toolbar-title>
+          <q-btn flat icon="exit_to_app" class="text-white" @click="logout" />
+        </q-toolbar>
+      </q-header>
 
-    <!-- Page Content -->
-    <q-page-container>
-      <router-view />
-    </q-page-container>
+      <!-- Drawer Sidebar -->
+      <q-drawer v-model="leftDrawerOpen" side="left" bordered class="bg-dark text-white">
+        <div class="q-pa-md">
+          <q-avatar size="56px" color="primary" icon="person" class="avatar-img" />
+          <div class="text-h6 q-mt-md">Bienvenido</div>
+          <div class="text-caption">Admin</div>
+        </div>
+        <q-list dense separator>
+          <q-item clickable to="/articulos" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="shopping_cart" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Artículos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/categorias" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="category" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Categorías</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/entrada" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="category" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Entradas</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/salida" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="category" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Salida</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/devolucions" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="category" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Devolución Salida</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/devolucione" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="category" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Devolución Entrada</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/clientes" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="people" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Clientes</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/proveedores" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="local_shipping" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Proveedores</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/usuarios" class="list-item">
+            <q-item-section avatar>
+              <q-icon name="admin_panel_settings" color="primary" class="icon-style" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="item-label">Usuarios</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-drawer>
 
-    <!-- Footer -->
-    <q-footer class="bg-blue text-white">
-      <div class="text-center py-3 footer-text">© 2024 INVENTARIO EXCLUSIVO</div>
-    </q-footer>
-  </q-layout>
+      <!-- Page Content -->
+      <q-page-container>
+        <router-view />
+      </q-page-container>
+
+      <!-- Footer -->
+      <q-footer class="bg-blue text-white">
+        <div class="text-center py-3 footer-text">© 2024 INVENTARIO EXCLUSIVO</div>
+      </q-footer>
+    </q-layout>
+  </div>
 </template>
 
 <script>
@@ -77,218 +120,109 @@ import { useRouter } from "vue-router";
 
 export default {
   setup() {
-    const leftDrawerOpen = ref(true);
+    const leftDrawerOpen = ref(false); // Inicialmente cerrado
     const router = useRouter();
 
-    // Logout Function
-    const logout = () => {
-      // Logic to logout the user
-      router.push('/');; // Redirect to login page
+    const toggleDrawer = () => {
+      leftDrawerOpen.value = !leftDrawerOpen.value;
     };
 
-    return { leftDrawerOpen, logout };
+    const logout = () => {
+      router.push("/");
+    };
+
+    return { leftDrawerOpen, toggleDrawer, logout };
   },
 };
 </script>
 
-<style scoped>
-/* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+<style>
+/* Fondo animado con ondas */
+.box {
+  position: fixed;
+  bottom: -1500px;
+  right: 0;
+  transform: rotate(80deg);
 }
 
-/* Body */
+.wave {
+  position: absolute;
+  bottom: -100%;
+  right: 10%;
+  background: #0af;
+  width: 1500px;
+  height: 1300px;
+  border-radius: 43%;
+  animation: drift 7000ms infinite linear;
+  opacity: 0.25;
+}
+
+.wave.-three {
+  animation: drift 7500ms infinite linear;
+  background-color: #77daff;
+  opacity: 0.15;
+}
+
+.wave.-two {
+  animation: drift 3000ms infinite linear;
+  opacity: 0.05;
+  background: black;
+}
+
+@keyframes drift {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Global Styles */
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f4f7fc;
+  font-family: "Roboto", sans-serif;
+  background-color: #0e6cc4; /* Fondo azul */
+  overflow: hidden;
 }
 
-/* Layout Background */
-.bg-dark {
-  background-color: #2d2d2d !important;
-}
-
+/* Drawer, Header, Footer, and Toolbar Styles */
 .bg-blue {
   background-color: #1e3a8a !important;
+}
+
+.bg-dark {
+  background-color: #2d2d2d !important;
 }
 
 .text-white {
   color: white !important;
 }
 
-/* Header */
 .q-header {
   border-bottom: 2px solid #e0e0e0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Avatar Styling */
-.avatar-img {
-  border: 3px solid #2196f3;
+.q-drawer {
+  width: 250px;
+  background-color: #232526 !important;
 }
 
-/* Toolbar Styling */
+.q-footer {
+  font-size: 14px;
+  color: white;
+  border-top: 2px solid #e0e0e0;
+}
+
 .q-toolbar-title {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
-/* Drawer Styling */
-.q-drawer {
-  width: 250px;
-  background-color: #232526 !important;
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Drawer Icons */
-.icon-style {
-  font-size: 22px;
-}
-
-/* Item Label Styling */
-.item-label {
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-/* Footer Styling */
-.q-footer {
-  background-color: #1e3a8a !important;
-  color: white;
-  font-size: 14px;
-  border-top: 2px solid #e0e0e0;
-}
-
-/* Transition Effects for Items */
-.q-item {
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.q-item:hover {
-  background-color: #1c2331;
-  transform: translateX(5px);
-}
-
-.q-list {
-  margin-top: 20px;
-}
-
-.q-item-section {
-  padding: 12px;
-}
-
-/* Footer Text */
 .footer-text {
   font-size: 16px;
   font-weight: 300;
   letter-spacing: 1px;
-  color: #ececec;
-}
-
-/* Animations */
-@keyframes slideIn {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* Side Drawer Animation */
-.q-drawer.show-if-above {
-  animation: slideIn 0.5s ease-out;
-}
-
-/* Item Hover Animation */
-.q-item:hover {
-  animation: pulse 0.5s ease-in-out;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Header Buttons */
-.q-btn.flat {
-  margin-left: auto;
-  transition: transform 0.3s ease;
-}
-
-.q-btn.flat:hover {
-  transform: scale(1.1);
-}
-
-/* Shadows */
-.q-toolbar, .q-drawer, .q-footer {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.q-drawer {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Smooth Transition for Drawer */
-.q-drawer {
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Sidebar Item Active */
-.q-item-active {
-  background-color: #2196f3 !important;
-}
-
-/* Hover Effects for List Items */
-.q-item:hover {
-  background-color: #2196f3 !important;
-  color: #fff;
-}
-
-/* Side Bar Item Active Label */
-.q-item-active .item-label {
-  color: #fff;
-  font-weight: bold;
-}
-
-/* Sidebar Padding */
-.q-pa-md {
-  padding: 20px;
-}
-
-/* Responsive Styles */
-@media (max-width: 767px) {
-  .q-drawer {
-    width: 100%;
-  }
-
-  .q-header {
-    display: none;
-  }
-
-  .q-toolbar-title {
-    font-size: 16px;
-  }
-
-  .q-footer {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 600px) {
-  .q-drawer {
-    width: 80%;
-  }
 }
 </style>

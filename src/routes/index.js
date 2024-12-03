@@ -5,6 +5,10 @@ import Homeview from '../views/home.vue';
 import ArticulosView from '../views/articulos.vue';
 import UsuariosView from '../views/usuarios.vue';
 import CategoriasView from '../views/categorias.vue';
+import EntradaView from '../views/entrada.vue';
+import SalidaView from '../views/salida.vue';
+import DevolucionSView from '../views/devolucions.vue';
+import DevolucionEview from '../views/devolucione.vue'
 import ClientesView from '../views/clientes.vue';
 import RegisterView from '../views/register.vue';
 import ProveedoresView from '../views/proveedores.vue';
@@ -20,7 +24,13 @@ const routes = [
     { path: '/proveedores', name: 'proveedores', component: ProveedoresView  },
     { path: '/clientes', name: 'clientes', component: ClientesView  },
     {path: '/register', name: 'register', component: RegisterView},
-    {path: '/usuarios', name :'usuarios', component: UsuariosView  }
+    {path: '/usuarios', name :'usuarios', component: UsuariosView  },
+    {path: '/entrada', name: 'entrada', component: EntradaView},
+    {path: '/salida', name: 'salida', component: SalidaView},
+    {path: '/devolucions', name: 'devolucions', component: DevolucionSView},
+    {path: '/devolucione', name: 'devolucione', component: DevolucionEview}
+
+
   ]}, 
  
 ];
