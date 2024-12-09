@@ -13,19 +13,23 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="edit"
-          @click="editCliente(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          color="negative"
-          :icon="props.row.estado === 'act' ? 'block' : 'done'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <div class="action-buttons">
+          <q-btn
+            flat
+            color="primary"
+            icon="✏️"
+            @click="editCliente(props.row)"
+            class="q-mr-sm"
+            size="md"  
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === 'act' ? 'green' : 'negative'"
+            :icon="props.row.estado === 'act' ? 'block' : 'done'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+            size="md" 
+          />
+        </div>
       </template>
     </q-table>
 
@@ -127,7 +131,6 @@ function closeModal() {
 }
 
 function editCliente(cli) {
-  // Create a new object with all properties of the selected client
   cliente.value = { 
     nombre: cli.nombre,
     identificacion: cli.identificacion,
@@ -135,9 +138,9 @@ function editCliente(cli) {
     email: cli.email,
     tipo: cli.tipo || "client"
   };
-  editingId.value = cli._id;  // Set the ID of the client to edit
-  isEditing.value = true;     // Indicate we are in edit mode
-  isModalOpen.value = true;   // Ensure the modal opens
+  editingId.value = cli._id;  
+  isEditing.value = true;     
+  isModalOpen.value = true;   
 }
 
 async function handleSubmit() {
@@ -149,8 +152,8 @@ async function handleSubmit() {
       await postData("/terceros", { ...cliente.value });
     }
     closeModal();
-    fetchClientes(); // Reload the client list
-    resetForm(); // Reset form after successful operation
+    fetchClientes(); 
+    resetForm(); 
   } catch (err) {
     console.error("Error al guardar el cliente:", err);
   }
@@ -176,4 +179,31 @@ onMounted(fetchClientes);
 </script>
 
 <style scoped>
+/* Estilo para centrar los botones de acción */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* Espaciado ligeramente mayor entre los botones */
+}
+.text-primary {
+  color: #ffffff !important;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+/* Aumento del tamaño de los botones */
+.q-btn {
+  min-width: 40px;  /* Mayor tamaño mínimo */
+  height: 40px;  /* Botón más alto */
+}
+
+.q-btn .q-icon {
+  font-size: 22px;  /* Íconos más grandes */
+}
+
+/* Asegurarse que las celdas están alineadas verticalmente */
+.q-table .q-td {
+  vertical-align: middle;
+}
 </style>

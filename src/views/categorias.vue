@@ -15,21 +15,25 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-td>
+        <div class="action-buttons">
+          <!-- Cambié el emoji de lápiz por ✏️ y aumenté el tamaño -->
           <q-btn
             flat
             color="primary"
-            label="Editar"
+            label="✏️"  
             @click="editCategoria(props.row)"
+            size="sm"
             class="q-mr-sm"
+            style="font-size: 24px;"  
           />
           <q-btn
             flat
             :color="props.row.estado === '1' ? 'green' : 'red'"
             :icon="props.row.estado === '1' ? 'done' : 'block'"
             @click="toggleEstado(props.row._id, props.row.estado)"
+            size="sm"
           />
-        </q-td>
+        </div>
       </template>
     </q-table>
 
@@ -172,10 +176,31 @@ onMounted(fetchCategorias);
 
 <style scoped>
 .text-primary {
-  color: #007bff !important;
+  color: #ffffff !important;
 }
 
 .text-center {
   text-align: center;
+}
+
+/* Contenedor de botones en la columna de acciones */
+.action-buttons {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  align-items: center; /* Centra los botones verticalmente */
+  gap: 8px; /* Espacio entre los botones */
+}
+
+.q-btn {
+  min-width: 32px; /* Tamaño mínimo para los botones */
+  height: 32px; /* Altura para los botones */
+}
+
+.q-btn .q-icon {
+  font-size: 18px; /* Ajustar el tamaño del ícono */
+}
+
+.q-table .q-td {
+  vertical-align: middle; /* Centra verticalmente los botones */
 }
 </style>

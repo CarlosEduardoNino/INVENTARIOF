@@ -113,13 +113,16 @@
                 />
               </template>
               <template v-slot:body-cell-actions="props">
-                <q-btn
-                  flat
-                  color="negative"
-                  icon="delete"
-                  @click="removeArticulo(props.row.id)"
-                  v-if="!isViewing"
-                />
+                <div class="action-buttons">
+                  <q-btn
+                    flat
+                    color="negative"
+                    icon="delete"
+                    @click="removeArticulo(props.row.id)"
+                    v-if="!isViewing"
+                    size="sm"
+                  />
+                </div>
               </template>
             </q-table>
 
@@ -154,26 +157,29 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="visibility"
-          @click="viewMovimiento(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          color="secondary"
-          icon="edit"
-          @click="editMovimiento(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          :color="props.row.estado === '1' ? 'green' : 'red'"
-          :icon="props.row.estado === '1' ? 'done' : 'block'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <div class="action-buttons">
+          <q-btn
+            flat
+            color="primary"
+            icon="👀"
+            @click="viewMovimiento(props.row)"
+            size="sm"
+          />
+          <q-btn
+            flat
+            color="secondary"
+            icon="✏️"
+            @click="editMovimiento(props.row)"
+            size="sm"
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === '1' ? 'green' : 'red'"
+            :icon="props.row.estado === '1' ? 'done' : 'block'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+            size="sm"
+          />
+        </div>
       </template>
     </q-table>
   </q-page>
@@ -219,7 +225,6 @@ const articulosColumns = [
   { name: "subtotal", label: "Subtotal", field: row => row.cantidad * row.precio, align: "right" },
   { name: "actions", label: "Acciones", align: "center" },
 ];
-
 
 function openModal() {
   resetForm();
@@ -323,20 +328,30 @@ async function handleSubmit() {
   fetchMovimientos();
   isModalOpen.value = false;
 }
+
 async function toggleEstado(id, estado) {
   try {
     const newState = estado === "1" ? "0" : "1";
     await putData(`/movimientos/estado/${id}`, { estado: newState });
-   
     fetchMovimientos();
   } catch (err) {
     console.error("Error al cambiar el estado del artículo:", err);
   }
 }
 
-
 onMounted(() => {
   fetchArticulos();
   fetchMovimientos();
 });
 </script>
+
+<style scoped>
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.text-primary {
+  color: #ffffff !important;
+}
+</style>

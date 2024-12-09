@@ -32,10 +32,7 @@
               filled
               type="number"
               placeholder="Precio del artículo"
-              :rules="[
-                (val) => val !== undefined && val !== null || 'El precio es obligatorio',
-                (val) => val >= 0 || 'El precio debe ser mayor o igual a 0'
-              ]"
+              :rules="[ (val) => val !== undefined && val !== null || 'El precio es obligatorio', (val) => val >= 0 || 'El precio debe ser mayor o igual a 0' ]"
               class="q-mb-sm"
             />
             <q-input
@@ -44,10 +41,7 @@
               filled
               type="number"
               placeholder="Cantidad en stock"
-              :rules="[
-                (val) => val !== undefined && val !== null || 'El stock es obligatorio',
-                (val) => val >= 0 || 'El stock debe ser mayor o igual a 0'
-              ]"
+              :rules="[ (val) => val !== undefined && val !== null || 'El stock es obligatorio', (val) => val >= 0 || 'El stock debe ser mayor o igual a 0' ]"
               class="q-mb-sm"
             />
             <q-select
@@ -62,13 +56,8 @@
               class="q-mb-sm"
             />
             <div class="text-center">
-              <q-btn color="primary"  label="Guardar" type="submit" class="q-mr-sm" />
-              <q-btn
-                label="Cancelar"
-                color="negative"
-                flat
-                @click="cancelEdit"
-              />
+              <q-btn color="primary" label="Guardar" type="submit" class="q-mr-sm" />
+              <q-btn label="Cancelar" color="negative" flat @click="cancelEdit" />
             </div>
           </q-form>
         </q-card-section>
@@ -84,19 +73,23 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="edit"
-          @click="editArticulo(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          :color="props.row.estado === '1' ? 'green' : 'red'"
-          :icon="props.row.estado === '1' ? 'done' : 'block'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <div class="action-buttons">
+          <q-btn
+            flat
+            color="primary"
+            icon="✏️"
+            @click="editArticulo(props.row)"
+            size="sm"
+            class="q-mr-sm"
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === '1' ? 'green' : 'red'"
+            :icon="props.row.estado === '1' ? 'done' : 'block'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+            size="sm"
+          />
+        </div>
       </template>
     </q-table>
   </q-page>
@@ -212,9 +205,29 @@ onMounted(() => {
 
 <style scoped>
 .text-primary {
-  color: #007bff !important;
+  color: #ffffff !important;
 }
 .text-center {
   text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  align-items: center; /* Centra los botones verticalmente */
+  gap: 8px; /* Espacio entre los botones */
+}
+
+.q-btn {
+  min-width: 32px; /* Tamaño mínimo para los botones */
+  height: 32px; /* Altura para los botones */
+}
+
+.q-btn .q-icon {
+  font-size: 18px; /* Ajustar el tamaño del ícono */
+}
+
+.q-table .q-td {
+  vertical-align: middle; /* Centrar verticalmente los botones */
 }
 </style>

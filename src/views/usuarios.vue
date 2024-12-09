@@ -13,19 +13,22 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="edit"
-          @click="editUsuario(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          :color="props.row.estado === 'activo' ? 'green' : 'red'"
-          :icon="props.row.estado === 'activo' ? 'done' : 'block'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <!-- Contenedor de botones centrado -->
+        <div class="actions-cell">
+          <q-btn
+            flat
+            color="primary"
+            icon="✏️"
+            @click="editUsuario(props.row)"
+            class="q-mr-sm"
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === 'activo' ? 'green' : 'red'"
+            :icon="props.row.estado === 'activo' ? 'done' : 'block'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+          />
+        </div>
       </template>
     </q-table>
 
@@ -61,7 +64,7 @@
               filled
               type="password"
               placeholder="Contraseña"
-              :rules="[
+              :rules="[ 
                 val => !isEditing || !val || val.length >= 6 || 
                 'La contraseña debe tener al menos 6 caracteres'
               ]"
@@ -91,7 +94,6 @@ const usuario = ref({
   email: "",
   password: "",
   estado: "activo",
-
 });
 const isModalOpen = ref(false);
 const isEditing = ref(false);
@@ -100,7 +102,6 @@ const editingId = ref(null);
 const columns = [
   { name: "nombre", label: "Nombre", align: "left", field: "nombre" },
   { name: "email", label: "Correo electrónico", align: "left", field: "email" },
-
   { name: "estado", label: "Estado", align: "center", field: "estado", 
     format: val => (val === "activo" ? "Activo" : "Inactivo") },
   { name: "actions", label: "Acciones", align: "center" },
@@ -132,52 +133,44 @@ function closeModal() {
 async function handleSubmit() {
   try {
     if (isEditing.value) {
-    
       const userData = {
         nombre: usuario.value.nombre,
         email: usuario.value.email,
-
       };
-      
-      
+
       if (usuario.value.password && usuario.value.password.trim() !== '') {
         userData.password = usuario.value.password;
       }
 
       await putData(`/usuarios/usuarios/${editingId.value}`, userData);
-   
     } else {
-     
       await postData("/usuarios/register", { 
         ...usuario.value,
         estado: 'activo',
-       
       });
-     
     }
     closeModal();
     await fetchUsuarios();
   } catch (err) {
     console.error('Error:', err);
-  
   }
 }
+
 async function toggleEstado(id, estado) {
   try {
     await putData(`/usuarios/estado/${id}`);
     await fetchUsuarios();
-    Notify.create({
+    q.notify({
       type: 'positive',
       message: 'Estado actualizado correctamente'
     });
   } catch (err) {
-    Notify.create({
+    q.notify({
       type: 'negative',
       message: 'Error al cambiar el estado del usuario'
     });
   }
 }
-
 
 function editUsuario(user) {
   usuario.value = { 
@@ -200,3 +193,20 @@ function resetForm() {
 
 onMounted(fetchUsuarios);
 </script>
+
+<style scoped>
+.text-primary {
+  color: #ffffff !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Estilos para centrar los botones de acciones */
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

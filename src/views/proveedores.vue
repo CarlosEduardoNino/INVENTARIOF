@@ -13,19 +13,22 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="edit"
-          @click="editProveedor(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          :color="props.row.estado === 'act' ? 'green' : 'red'"
-          :icon="props.row.estado === 'act' ? 'done' : 'block'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <!-- Contenedor de botones centrado -->
+        <div class="actions-cell">
+          <q-btn
+            flat
+            color="primary"
+            icon="✏️"
+            @click="editProveedor(props.row)"
+            class="q-mr-sm"
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === 'act' ? 'green' : 'red'"
+            :icon="props.row.estado === 'act' ? 'done' : 'block'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+          />
+        </div>
       </template>
     </q-table>
 
@@ -69,10 +72,7 @@
               filled
               type="email"
               placeholder="Correo electrónico"
-              :rules="[
-                val => !!val || 'El correo electrónico es obligatorio',
-                val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || 'Debe ser un correo válido'
-              ]"
+              :rules="[ val => !!val || 'El correo electrónico es obligatorio', val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || 'Debe ser un correo válido' ]"
               class="q-mb-sm"
             />
             <div class="q-mt-md text-center">
@@ -182,9 +182,15 @@ onMounted(fetchProveedores);
 
 <style scoped>
 .text-primary {
-  color: #007bff !important;
+  color: #ffffff !important;
 }
 .text-center {
   text-align: center;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

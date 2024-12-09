@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <h2 class="text-center text-primary q-mb-lg">Movimientos de Salida</h2>
+    <h2 class="text-center text-primary q-mb-lg" style="color: white;">Movimientos de Salida</h2>
 
     <q-btn
       color="primary"
@@ -113,13 +113,16 @@
                 />
               </template>
               <template v-slot:body-cell-actions="props">
-                <q-btn
-                  flat
-                  color="negative"
-                  icon="delete"
-                  @click="removeArticulo(props.row.id)"
-                  v-if="!isViewing"
-                />
+                <div class="action-buttons">
+                  <q-btn
+                    flat
+                    color="negative"
+                    icon="delete"
+                    @click="removeArticulo(props.row.id)"
+                    v-if="!isViewing"
+                    size="sm"
+                  />
+                </div>
               </template>
             </q-table>
 
@@ -154,26 +157,29 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="visibility"
-          @click="viewMovimiento(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          color="secondary"
-          icon="edit"
-          @click="editMovimiento(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          :color="props.row.estado === '1' ? 'green' : 'red'"
-          :icon="props.row.estado === '1' ? 'done' : 'block'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <div class="action-buttons">
+          <q-btn
+            flat
+            color="primary"
+            icon="👀"
+            @click="viewMovimiento(props.row)"
+            size="sm"
+          />
+          <q-btn
+            flat
+            color="secondary"
+            icon="✏️"
+            @click="editMovimiento(props.row)"
+            size="sm"
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === '1' ? 'green' : 'red'"
+            :icon="props.row.estado === '1' ? 'done' : 'block'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+            size="sm"
+          />
+        </div>
       </template>
     </q-table>
   </q-page>
@@ -340,3 +346,11 @@ onMounted(() => {
   fetchMovimientos();
 });
 </script>
+
+<style scoped>
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+</style>

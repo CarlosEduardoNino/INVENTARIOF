@@ -113,13 +113,29 @@
                 />
               </template>
               <template v-slot:body-cell-actions="props">
-                <q-btn
-                  flat
-                  color="negative"
-                  icon="delete"
-                  @click="removeArticulo(props.row.id)"
-                  v-if="!isViewing"
-                />
+                <!-- Contenedor para centrar los botones -->
+                <div class="actions-cell">
+                  <q-btn
+                    flat
+                    color="primary"
+                    icon="visibility"
+                    @click="viewMovimiento(props.row)"
+                    class="q-mr-sm"
+                  />
+                  <q-btn
+                    flat
+                    color="secondary"
+                    icon="✏️"
+                    @click="editMovimiento(props.row)"
+                    class="q-mr-sm"
+                  />
+                  <q-btn
+                    flat
+                    :color="props.row.estado === '1' ? 'green' : 'red'"
+                    :icon="props.row.estado === '1' ? 'done' : 'block'"
+                    @click="toggleEstado(props.row._id, props.row.estado)"
+                  />
+                </div>
               </template>
             </q-table>
 
@@ -154,26 +170,28 @@
       class="q-mt-md"
     >
       <template v-slot:body-cell-actions="props">
-        <q-btn
-          flat
-          color="primary"
-          icon="visibility"
-          @click="viewMovimiento(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          color="secondary"
-          icon="edit"
-          @click="editMovimiento(props.row)"
-          class="q-mr-sm"
-        />
-        <q-btn
-          flat
-          :color="props.row.estado === '1' ? 'green' : 'red'"
-          :icon="props.row.estado === '1' ? 'done' : 'block'"
-          @click="toggleEstado(props.row._id, props.row.estado)"
-        />
+        <div class="actions-cell">
+          <q-btn
+            flat
+            color="primary"
+            icon="👀"
+            @click="viewMovimiento(props.row)"
+            class="q-mr-sm"
+          />
+          <q-btn
+            flat
+            color="secondary"
+            icon="✏️"
+            @click="editMovimiento(props.row)"
+            class="q-mr-sm"
+          />
+          <q-btn
+            flat
+            :color="props.row.estado === '1' ? 'green' : 'red'"
+            :icon="props.row.estado === '1' ? 'done' : 'block'"
+            @click="toggleEstado(props.row._id, props.row.estado)"
+          />
+        </div>
       </template>
     </q-table>
   </q-page>
@@ -338,3 +356,15 @@ onMounted(() => {
   fetchMovimientos();
 });
 </script>
+
+<style scoped>
+  /* CSS personalizado para centrar los botones en las celdas de acciones */
+  .actions-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .text-primary {
+  color: #ffffff !important;
+}
+</style>
